@@ -56,27 +56,25 @@ function SnackPurchase() {
 
     function handleChange(event) {
         const {name, value} = event.target;
-        if (value != "") {
-            setPayment(p => {
-                return {
-                    ...p,
-                    [name]: value
-                };
-            })
-        }
+        setPayment(p => {
+            return {
+                ...p,
+                [name]: value == "" ? 0 : value.replace(/^0+/, '')
+            };
+        })
     }
 
     async function handleClick() {
         try {
             const response = await snackService.purchaseSnack(id, payment);
             if (response.status == 200) {
-                console.log("So HAPPY!");
+                // Do next thing here
+                console.log(response.data);
             }
         } catch (error) {
             setErrorData(getErrorResponse(error));
         }
     }
-
 
     return(
         <div className={styles.container}>
@@ -94,7 +92,7 @@ function SnackPurchase() {
                             name="quarters" holder="0" messages={errorData.errors.quarters} />
 
                     <FormFieldError messages={[errorData.message]}></FormFieldError>
-                    {console.log(errorData.errors.Fives)}
+
                     <div className={styles.buttonContainer}>
                         <button className={styles.submitButton} onClick={handleClick} type="button" >Submit</button >
                     </div>
