@@ -1,20 +1,29 @@
 import Axios from "axios";
 
-const baseUrl = "http://localhost:5188/Snack";
+class SnackService {
 
-function getConfig() {
-    return {
-        headers: {
-            'Content-Type': 'application/json'
-        }
+    baseUrl = "http://localhost:5188/api/Snack";
+
+    config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+
+    constructor(){}
+
+    async getAllSnacks() {
+        return await Axios.get(this.baseUrl + "/all", this.config);
+    }
+
+    async getSnackById(snackId) {
+        return await Axios.get(this.baseUrl + `/${snackId}`, this.config);
+    }
+
+    async purchaseSnack(snackId, data) {
+        url = baseUrl + `/purchase/${snackId}`
+        return await Axios.post(this.url, data, this.config);
     }
 }
 
-export async function getAllSnacks() {
-    return await Axios.get(baseUrl + "/all", getConfig());
-}
-
-export async function purchaseSnack(snackId, data) {
-    url = baseUrl + `/purchase/${snackId}`
-    return await Axios.post(url, data, getConfig());
-}
+export default SnackService;

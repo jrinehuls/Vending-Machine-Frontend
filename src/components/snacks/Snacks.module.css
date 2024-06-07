@@ -9,8 +9,9 @@
 
 .tableContainer > h1 {
     text-align: center;
-    color: rgb(20, 230, 20);
+    color: rgb(90, 180, 80);
     margin-top: 0px;
+    font-size: 36px;
 }
 
 .snackTable {
@@ -28,6 +29,7 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: 24px;
     text-align: center;
+    height: 50px;
 }
 
 .snackTable th {
@@ -58,6 +60,12 @@
     border: 2px solid gray;
     border-radius: 6px;
     background-color: blue;
+}
+
+.buyButton:hover {
+    cursor: pointer;
+    background-color: aqua;
+    transition: 0.2s;
 }
 
 
