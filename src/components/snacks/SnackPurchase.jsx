@@ -43,6 +43,9 @@ function SnackPurchase() {
         try {
             const response = await snackService.getSnackById(id);
             if (response.status == 200) {
+                if (response.data.quantity == 0) {
+                    navigator('/')
+                }
                 setSnack(response.data);
             }
         } catch (error) {
@@ -69,7 +72,7 @@ function SnackPurchase() {
             const response = await snackService.purchaseSnack(id, payment);
             if (response.status == 200) {
                 // Do next thing here
-                console.log(response.data);
+                navigator("/give", {state: response.data});
             }
         } catch (error) {
             setErrorData(getErrorResponse(error));
@@ -79,6 +82,7 @@ function SnackPurchase() {
     return(
         <div className={styles.container}>
             <h1>{snack.name} ${snack.cost.toFixed(2)}</h1>
+            {console.log(snack)}
             <h1>Entereth Thou Thine Payment</h1>
             <div className={styles.formContainer}>
                 <form>
