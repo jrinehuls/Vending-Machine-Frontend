@@ -12,10 +12,7 @@ function Header() {
                 <nav className={styles.navbar}>
                     <span>Vending Machine</span>
                     <div className={styles.linkContainer}>
-                        <a href="/monsters">Show Monsters</a>
-                        <a href="/monster/create">Create Monster</a>
-                        <a href="/spells">Show Spells</a>
-                        <a href="/spell/create">Create Spell</a>
+                        <a href="/">Show Snacks</a>
                     </div>
                 </nav>
             </header>
