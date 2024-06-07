@@ -3,7 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import SnackService from "../../services/snackService";
 import styles from "./SnackPurchase.module.css";
 import FormInput from '../form_input/FormInput';
-//import getErrorResponse from '../../utils/errorUtils'
+import { getErrorResponse } from '../../utils/errorUtils'
+import FormFieldError from '../form_field_error/FormFieldError';
 
 const snackService = new SnackService();
 
@@ -15,9 +16,19 @@ function SnackPurchase() {
         "quarters": 0
     };
 
-    const [errors, setErrors] = useState(null);
+    const defaultErrorData = {
+        errors: [],
+        message: ""
+    }
+
+    const defaultSnack = {
+        name: "",
+        cost: 0
+    }
+
+    const [errorData, setErrorData] = useState(defaultErrorData);
     const [payment, setPayment] = useState(defaultPayment);
-    const [snack, setSnack] = useState({});
+    const [snack, setSnack] = useState(defaultSnack);
 
     const navigator = useNavigate();
     const {id} = useParams();
@@ -45,33 +56,45 @@ function SnackPurchase() {
 
     function handleChange(event) {
         const {name, value} = event.target;
-        setPayment(p => {
-            return {
-                ...p,
-                [name]: value
-            };
-        })
+        if (value != "") {
+            setPayment(p => {
+                return {
+                    ...p,
+                    [name]: value
+                };
+            })
+        }
     }
 
-    function handleClick() {
-
+    async function handleClick() {
+        try {
+            const response = await snackService.purchaseSnack(id, payment);
+            if (response.status == 200) {
+                console.log("So HAPPY!");
+            }
+        } catch (error) {
+            setErrorData(getErrorResponse(error));
+        }
     }
 
 
     return(
         <div className={styles.container}>
+            <h1>{snack.name} ${snack.cost.toFixed(2)}</h1>
             <h1>Entereth Thou Thine Payment</h1>
             <div className={styles.formContainer}>
                 <form>
                     <FormInput type="number" labelText="Fives:" handleChange={handleChange} value={payment.fives}
-                            name="fives" holder="Enter Fives..." messages={errors?.fives} />
-
+                            name="fives" holder="0" messages={errorData.errors.Fives} />
+                            
                     <FormInput type="number" labelText="Ones:" handleChange={handleChange} value={payment.ones}
-                            name="ones" holder="Enter Ones..." messages={errors?.ones} />
+                            name="ones" holder="0" messages={errorData.errors.ones} />
 
                     <FormInput type="number" labelText="Quarters:" handleChange={handleChange} value={payment.quarters}
-                            name="quarters" holder="Enter Quarters..." messages={errors?.quarters} />
+                            name="quarters" holder="0" messages={errorData.errors.quarters} />
 
+                    <FormFieldError messages={[errorData.message]}></FormFieldError>
+                    {console.log(errorData.errors.Fives)}
                     <div className={styles.buttonContainer}>
                         <button className={styles.submitButton} onClick={handleClick} type="button" >Submit</button >
                     </div>

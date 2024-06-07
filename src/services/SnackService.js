@@ -21,8 +21,8 @@ class SnackService {
     }
 
     async purchaseSnack(snackId, data) {
-        url = baseUrl + `/purchase/${snackId}`
-        return await Axios.post(this.url, data, this.config);
+        const url = this.baseUrl + `/Purchase/${snackId}`
+        return await Axios.post(url, data, this.config);
     }
 }
 
