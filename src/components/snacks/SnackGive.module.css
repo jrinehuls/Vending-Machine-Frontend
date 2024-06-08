@@ -1,0 +1,29 @@
+
+.container {
+    margin: 150px auto 200px auto;
+    width: 40%;
+    min-width: 500px;
+}
+
+.container > h1 {
+    text-align: center;
+    color: rgb(90, 180, 80);
+    margin-top: 0px;
+    font-size: 36px;
+}
+
+.labelContainer {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: rgb(20, 230, 20);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    margin: 10px auto;
+    font-size: 30px;
+    text-align: center;
+}

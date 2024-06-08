@@ -7,8 +7,9 @@
 
 .container > h1 {
     text-align: center;
-    color: rgb(20, 230, 20);
+    color: rgb(90, 180, 80);
     margin-top: 0px;
+    font-size: 36px;
 }
 
 .formContainer {

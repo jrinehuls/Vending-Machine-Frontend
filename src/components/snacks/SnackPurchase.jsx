@@ -71,7 +71,6 @@ function SnackPurchase() {
         try {
             const response = await snackService.purchaseSnack(id, payment);
             if (response.status == 200) {
-                // Do next thing here
                 navigator("/give", {state: response.data});
             }
         } catch (error) {
@@ -82,7 +81,6 @@ function SnackPurchase() {
     return(
         <div className={styles.container}>
             <h1>{snack.name} ${snack.cost.toFixed(2)}</h1>
-            {console.log(snack)}
             <h1>Entereth Thou Thine Payment</h1>
             <div className={styles.formContainer}>
                 <form>
@@ -90,10 +88,10 @@ function SnackPurchase() {
                             name="fives" holder="0" messages={errorData.errors.Fives} />
                             
                     <FormInput type="number" labelText="Ones:" handleChange={handleChange} value={payment.ones}
-                            name="ones" holder="0" messages={errorData.errors.ones} />
+                            name="ones" holder="0" messages={errorData.errors.Ones} />
 
                     <FormInput type="number" labelText="Quarters:" handleChange={handleChange} value={payment.quarters}
-                            name="quarters" holder="0" messages={errorData.errors.quarters} />
+                            name="quarters" holder="0" messages={errorData.errors.Quarters} />
 
                     <FormFieldError messages={[errorData.message]}></FormFieldError>
 
