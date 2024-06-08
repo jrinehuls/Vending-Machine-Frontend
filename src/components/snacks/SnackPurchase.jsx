@@ -11,9 +11,12 @@ const snackService = new SnackService();
 function SnackPurchase() {
 
     const defaultPayment = {
-        "fives": 0,
-        "ones": 0,
-        "quarters": 0
+        fives: 0,
+        ones: 0,
+        quarters: 0,
+        dimes: 0,
+        nickels: 0,
+        pennies: 0
     };
 
     const defaultErrorData = {
@@ -27,6 +30,7 @@ function SnackPurchase() {
     }
 
     const [errorData, setErrorData] = useState(defaultErrorData);
+    const [paymentTotal, setPaymentTotal] = useState(0.00);
     const [payment, setPayment] = useState(defaultPayment);
     const [snack, setSnack] = useState(defaultSnack);
 
@@ -65,6 +69,7 @@ function SnackPurchase() {
                 [name]: value == "" ? 0 : value.replace(/^0+/, '')
             };
         })
+        console.log(payment)
     }
 
     async function handleClick() {
@@ -78,12 +83,24 @@ function SnackPurchase() {
         }
     }
 
+    function calcTotal(payment) {
+        let total = 0
+        total += payment.fives * 500
+        total += payment.ones * 100
+        total += payment.quarters * 25
+        total += payment.dimes * 10
+        total += payment.nickels * 5
+        total += +payment.pennies
+        return (total/100).toFixed(2)
+    }
+
     return(
         <div className={styles.container}>
             <h1>{snack.name} ${snack.cost.toFixed(2)}</h1>
             <h1>Entereth Thou Thine Payment</h1>
             <div className={styles.formContainer}>
                 <form>
+                    <label className={styles.totalLabel}>Current Total: ${calcTotal(payment)}</label>
                     <FormInput type="number" labelText="Fives:" handleChange={handleChange} value={payment.fives}
                             name="fives" holder="0" messages={errorData.errors.Fives} />
                             
@@ -92,6 +109,15 @@ function SnackPurchase() {
 
                     <FormInput type="number" labelText="Quarters:" handleChange={handleChange} value={payment.quarters}
                             name="quarters" holder="0" messages={errorData.errors.Quarters} />
+
+                    <FormInput type="number" labelText="Dimes:" handleChange={handleChange} value={payment.dimes}
+                            name="dimes" holder="0" messages={errorData.errors.Dimes} />
+
+                    <FormInput type="number" labelText="Nickels:" handleChange={handleChange} value={payment.nickels}
+                            name="nickels" holder="0" messages={errorData.errors.Nickels} />
+
+                    <FormInput type="number" labelText="Pennies:" handleChange={handleChange} value={payment.pennies}
+                            name="pennies" holder="0" messages={errorData.errors.Pennies} />
 
                     <FormFieldError messages={[errorData.message]}></FormFieldError>
 
