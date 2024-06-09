@@ -20,7 +20,7 @@ import styles from "./SnackGive.module.css";
             ones: 0,
             quarters: 0,
             dimes: 0,
-            nickles: 0,
+            nickels: 0,
             pennies: 0
         }
     }
@@ -45,7 +45,7 @@ import styles from "./SnackGive.module.css";
                 <label>Ones: {response.change.ones}</label>
                 <label>Quarters: {response.change.quarters}</label>
                 <label>Dimes: {response.change.dimes}</label>
-                <label>Nickles: {response.change.nickles}</label>
+                <label>Nickels: {response.change.nickels}</label>
                 <label>Pennies: {response.change.pennies}</label>
             </div>
         </div>
